@@ -415,15 +415,16 @@ class _NewGradientAppBarState extends State<NewGradientAppBar> {
 
     IconThemeData overallIconTheme =
         widget.iconTheme ?? appBarTheme.iconTheme ?? themeData.primaryIconTheme;
+
     IconThemeData actionsIconTheme = widget.actionsIconTheme ??
         appBarTheme.actionsIconTheme ??
         overallIconTheme;
-    TextStyle centerStyle = (widget.textTheme?.headline6 ??
-        appBarTheme.textTheme?.headline6 ??
-        themeData.primaryTextTheme.headline6)!;
-    TextStyle? sideStyle = widget.textTheme?.bodyText2 ??
-        appBarTheme.textTheme?.bodyText2 ??
-        themeData.primaryTextTheme.bodyText2;
+
+    TextStyle centerStyle = (widget.textTheme?.titleLarge ??
+        themeData.primaryTextTheme.titleLarge)!;
+
+    TextStyle? sideStyle = widget.textTheme?.bodyMedium ??
+        themeData.primaryTextTheme.bodyMedium;
 
     if (widget.toolbarOpacity != 1.0) {
       final double opacity =
@@ -577,8 +578,7 @@ class _NewGradientAppBarState extends State<NewGradientAppBar> {
       );
     }
     final Brightness brightness = widget.brightness ??
-        appBarTheme.brightness ??
-        themeData.primaryColorBrightness;
+        themeData.brightness;
     final SystemUiOverlayStyle overlayStyle = brightness == Brightness.dark
         ? SystemUiOverlayStyle.light
         : SystemUiOverlayStyle.dark;
@@ -588,7 +588,7 @@ class _NewGradientAppBarState extends State<NewGradientAppBar> {
       child: AnnotatedRegion<SystemUiOverlayStyle>(
         value: overlayStyle,
         child: Material(
-            color: appBarTheme.color ?? themeData.primaryColor,
+            color: themeData.primaryColor,
             elevation:
                 widget.elevation ?? appBarTheme.elevation ?? _defaultElevation,
             shape: widget.shape,
@@ -623,7 +623,7 @@ class _FloatingGradientAppBarState extends State<_FloatingGradientAppBar> {
     super.didChangeDependencies();
     if (_position != null)
       _position!.isScrollingNotifier.removeListener(_isScrollingListener);
-    _position = Scrollable.of(context)?.position;
+    _position = Scrollable.of(context).position;
     if (_position != null)
       _position!.isScrollingNotifier.addListener(_isScrollingListener);
   }
